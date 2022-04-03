@@ -3,12 +3,17 @@
 #include <cmath>
 using  namespace std;
 
-int divs (int value) {
-    static int count = 0,current = 2;
+
+int divs (int value,int &count,int &current) {
+
     if (value % current == 0) count++;
     current++;
-    if (current < int(sqrt(value))+1) divs(value);
-    else return count*2;
+    if (current < int(sqrt(value))) divs(value,count,current);
+    else{
+        int result;
+        if(sqrt(value)-int(sqrt(value)) == 0) return count*2+1;
+        else return count*2;
+    }
 }
 
 struct Node{
@@ -91,11 +96,13 @@ int main(){
 
         switch (work) {
             case 1: {
+                int count =0;
+                int current = 2;
                 cout << "Вариант 20 Задание 1" << endl;
                 cout << "Введите число: "<< endl;
                 int n;
                 cin >> n;
-                cout << "Количество делителей: " << divs(n)<< endl;
+                cout << "Количество делителей: " << divs(n,count,current)<< endl;
                 break;
             }
             case 2: {
